@@ -13,7 +13,7 @@ class PathlikeStructuresCollection(InternalStructuresCollection):
     @logger.catch()
     def __init__(self, structure_type: str):
         super(PathlikeStructuresCollection, self).__init__()
-        self.structures: Dict[PathlikeStructure] = {}
+        self.structures: Dict[str, PathlikeStructure] = {}
 
         self._set_type(structure_type)
         self._set_protein_name()
@@ -34,6 +34,8 @@ class PathlikeStructuresCollection(InternalStructuresCollection):
             structure.set_profile(self.__get_profile_nodes(structure_data))
             structure.set_residues(self.__get_residues(structure_data))
             structure.set_protein_level(self.protein_level)
+            structure.set_type(self.structure_type)
+            structure.set_protein(self.protein_name)
 
             self.structures[structure_id] = structure
 
@@ -104,5 +106,5 @@ class PathlikeStructuresCollection(InternalStructuresCollection):
     def get_type(self) -> str:
         return self.structure_type
 
-    def get_structures(self) -> dict:
+    def get_structures(self) -> Dict[str, PathlikeStructure]:
         return self.structures
